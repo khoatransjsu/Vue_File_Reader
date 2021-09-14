@@ -7,10 +7,11 @@ const app = express();
 
 app.use(cors());
 
+app.use(express.static(path.join(__dirname, 'pdf')));
+
 const root = path.join(__dirname, 'pdf');
 
-const readDir = function (req, res) {
-   
+const readDir = function (req, res) { 
     let path = root;
 
     if(req.query.path!=undefined){
@@ -50,6 +51,10 @@ const readDir = function (req, res) {
     });
 
 }
+
+app.get('/', (req, res)=>{
+    res.send("Server Ok!")
+});
 
 app.get('/readFiles', readDir);
 
