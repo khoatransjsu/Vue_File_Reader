@@ -25,8 +25,7 @@ const readDir = function (req, res) {
 
         if(err) {
             res.send({
-                'message': 'error', 
-                'data': 'Error reading directory: ' + path
+                'data': 'Unable to read directory: ' + path
             });
         }
 
@@ -43,7 +42,6 @@ const readDir = function (req, res) {
         });
 
         res.send({
-            'message': 'success',
             'data': arr,
             'pdfCount': pdfCount
         });
