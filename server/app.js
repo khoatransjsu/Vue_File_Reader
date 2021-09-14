@@ -14,11 +14,12 @@ const root = path.join(__dirname, 'pdf');
 const readDir = function (req, res) { 
     let path = root;
 
-    if(req.query.path!=undefined){
-        path +=req.query.path;
+    if(req.query.path != undefined){
+        path += req.query.path;
     }
     
     let arr = []
+
     let pdfCount = 0, dirCount = 0;
 
     fs.readdir(path, { withFileTypes: true }, (err, files) => {
