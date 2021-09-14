@@ -1,5 +1,5 @@
 Tasks: 
-- Write a VueJS/Veutify web page app that connects to node.js running on a Linux server and presents a list of folders from a specific folder to the user.
+- Write a VueJS/Vuetify web page app that connects to node.js running on a Linux server and presents a list of folders from a specific folder to the user.
 - Allow the user to navigate up and down the list and select an entry. 
 - Enumerate the PDF files in the selected folder on the server, present the list to the user and allow the user to navigate up and 
 down. 
