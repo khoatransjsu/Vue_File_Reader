@@ -25,9 +25,7 @@ const readDir = function (req, res) {
     fs.readdir(path, { withFileTypes: true }, (err, files) => {
 
         if(err) {
-            res.send({
-                'data': 'Unable to read directory: ' + path
-            });
+            res.send("Directory not found");
         }
 
         files.forEach(file => {
