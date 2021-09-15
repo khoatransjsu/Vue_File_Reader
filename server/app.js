@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, 'pdf')));
 
 const root = path.join(__dirname, 'pdf');
 
-const readDir = function (req, res) { 
+const readDir = (req, res) =>{ 
     let path = root;
 
     if(req.query.path != undefined){
@@ -20,7 +20,7 @@ const readDir = function (req, res) {
     
     let arr = []
 
-    let pdfCount = 0, dirCount = 0;
+    let pdf = 0, dir = 0;
 
     fs.readdir(path, { withFileTypes: true }, (err, files) => {
 
@@ -32,17 +32,17 @@ const readDir = function (req, res) {
             const fileData = {'name': file.name, 'isDirectory': file.isDirectory()};
 
             if(file.isDirectory()) {
-                arr.splice(dirCount, 0, fileData)
-                dirCount ++;
+                arr.splice(dir, 0, fileData)
+                dir ++;
             } else {
-                arr.splice(dirCount + pdfCount, 0, fileData);
-                pdfCount ++;
+                arr.splice(dir + pdf, 0, fileData);
+                pdf ++;
             }
         });
 
         res.send({
             'data': arr,
-            'pdfCount': pdfCount
+            'pdfCount': pdf
         });
 
     });
