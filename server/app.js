@@ -11,43 +11,7 @@ app.use(express.static(path.join(__dirname, 'pdf')));
 
 const root = path.join(__dirname, 'pdf');
 
-const readDir = (req, res) =>{ 
-    let path = root;
-
-    if(req.query.path != undefined){
-        path += req.query.path;
-    }
-    
-    let arr = []
-
-    let pdf = 0, dir = 0;
-
-    fs.readdir(path, { withFileTypes: true }, (err, files) => {
-
-        if(err) {
-            res.send("Directory not found");
-        }
-
-        files.forEach(file => {
-            const fileData = {'name': file.name, 'isDirectory': file.isDirectory()};
-
-            if(file.isDirectory()) {
-                arr.splice(dir, 0, fileData)
-                dir ++;
-            } else {
-                arr.splice(dir + pdf, 0, fileData);
-                pdf ++;
-            }
-        });
-
-        res.send({
-            'data': arr,
-            'pdfCount': pdf
-        });
-       
-
-    });
-}
+let arr = []
 
 function traverseDir(dir) {
     let count = 0;
@@ -58,8 +22,9 @@ function traverseDir(dir) {
         'location': fullPath 
         };
       if (fs.lstatSync(fullPath).isDirectory()) {      
+            arr.push(fileData);
             traverseDir(fullPath);
-       } else {
+       } else { 
             count++;
             console.log(fileData);
             count = 0;
@@ -67,6 +32,20 @@ function traverseDir(dir) {
     });
 }
 
+const readDir = (req,res) =>{ 
+    let dir = root;
+
+    if(req.query.path != undefined){
+        dir += req.query.path;
+    }
+    
+    traverseDir(dir);
+
+    res.send({
+        
+    })
+
+}
 
 app.get('/', (req, res)=>{
     res.send("Server Ok!")
