@@ -44,27 +44,30 @@ const readDir = (req, res) =>{
             'data': arr,
             'pdfCount': pdf
         });
+       
 
     });
-
 }
 
-// Get from StackOverflow
 function traverseDir(dir) {
     let count = 0;
     fs.readdirSync(dir).forEach(file => {
       let fullPath = path.join(dir, file);
-      if (fs.lstatSync(fullPath).isDirectory()) {
-      //   console.log(fullPath);
-         traverseDir(fullPath);
+      const fileData = {
+        'name': file,
+        'location': fullPath 
+        };
+      if (fs.lstatSync(fullPath).isDirectory()) {      
+            traverseDir(fullPath);
        } else {
             count++;
-            console.log(fullPath + " " + count);
+            console.log(fileData);
+            count = 0;
        }  
     });
 }
 
-console.log(traverseDir(root));
+// console.log(traverseDir(root));
 
 app.get('/', (req, res)=>{
     res.send("Server Ok!")
