@@ -32,6 +32,7 @@ function traverseDir(dir) {
     });
 }
 
+
 const readDir = (req,res) =>{ 
     let dir = root;
 
@@ -42,7 +43,7 @@ const readDir = (req,res) =>{
     traverseDir(dir);
 
     res.send({
-        
+        arr
     })
 
 }

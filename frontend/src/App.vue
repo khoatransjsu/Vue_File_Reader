@@ -7,6 +7,18 @@
   </div>
 </template>
 
-<style>
+<script>
 
-</style>
+
+export default ({
+  data() {
+   return{
+      files: []
+   }
+  },
+  methods: {
+
+  }
+})
+</script>
+
