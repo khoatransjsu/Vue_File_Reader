@@ -51,18 +51,20 @@ const readDir = (req, res) =>{
 
 // Get from StackOverflow
 function traverseDir(dir) {
+    let count = 0;
     fs.readdirSync(dir).forEach(file => {
       let fullPath = path.join(dir, file);
       if (fs.lstatSync(fullPath).isDirectory()) {
-         console.log(fullPath);
+      //   console.log(fullPath);
          traverseDir(fullPath);
        } else {
-         console.log(fullPath);
+            count++;
+            console.log(fullPath + " " + count);
        }  
     });
 }
 
-// console.log(traverseDir(root));
+console.log(traverseDir(root));
 
 app.get('/', (req, res)=>{
     res.send("Server Ok!")
