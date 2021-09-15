@@ -60,8 +60,9 @@ function traverseDir(dir) {
          console.log(fullPath);
        }  
     });
-  }
+}
 
+// console.log(traverseDir(root));
 
 app.get('/', (req, res)=>{
     res.send("Server Ok!")
