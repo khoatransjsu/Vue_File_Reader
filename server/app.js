@@ -21,20 +21,19 @@ function traverseDir(dir) {
         'name': file,
         'location': fullPath 
         };
-       
-      if (fs.lstatSync(fullPath).isDirectory()) {         
-            temp = []; 
-            temp.push(fileData);   
-            arr.push(temp);   
-            traverseDir(fullPath);     
+       isPdf = false;
+      if (fs.lstatSync(fullPath).isDirectory()) {            
+            fileData['isPdf'] = true;
+            arr.push(fileData);   
+           // traverseDir(fullPath);     
         } else { 
+            fileData['isPdf'] = false;
             count++;
+            fileData['count'] = count;
             arr.push(fileData);
-       }  
-       
+       }       
     });
 }
-
 
 const readDir = (req,res) =>{ 
     let dir = root;
@@ -59,7 +58,8 @@ app.get('/readFiles', readDir);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => { console.log( `Server running on Port ${PORT}`);
+app.listen(PORT, () => { 
+    console.log(`Server running on Port ${PORT}`);
 });
 
 module.exports = app;
