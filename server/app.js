@@ -14,7 +14,6 @@ const root = path.join(__dirname, 'pdf');
 let arr = []
 
 function traverseDir(dir) {
-    let count = 0;
     fs.readdirSync(dir).forEach(file => {
       let fullPath = path.join(dir, file);
       const fileData = {
@@ -23,26 +22,19 @@ function traverseDir(dir) {
         };
        isPdf = false;
       if (fs.lstatSync(fullPath).isDirectory()) {            
-            fileData['isPdf'] = true;
-            arr.push(fileData);   
-           // traverseDir(fullPath);     
-        } else { 
             fileData['isPdf'] = false;
-            count++;
-            fileData['count'] = count;
+            arr.push(fileData);   
+            //traverseDir(fullPath);     
+        } else { 
+            fileData['isPdf'] = true;
             arr.push(fileData);
        }       
     });
 }
 
 const readDir = (req,res) =>{ 
-    let dir = root;
 
-    if(req.query.path != undefined){
-        dir += req.query.path;
-    }
-    
-    traverseDir(dir);
+    traverseDir(__dirname + '/pdf/');
 
     res.send({
         arr
