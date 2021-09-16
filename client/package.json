@@ -7,8 +7,10 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@fortawesome/vue-fontawesome": "^2.0.2",
     "axios": "^0.21.4",
     "core-js": "^3.6.5",
+    "pdfvuer": "^1.9.2",
     "vue": "^2.6.11"
   },
   "devDependencies": {
