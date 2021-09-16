@@ -21,14 +21,17 @@ function traverseDir(dir) {
         'name': file,
         'location': fullPath 
         };
-      if (fs.lstatSync(fullPath).isDirectory()) {      
-            arr.push(fileData);
-            traverseDir(fullPath);
-       } else { 
+       
+      if (fs.lstatSync(fullPath).isDirectory()) {         
+            temp = []; 
+            temp.push(fileData);   
+            arr.push(temp);   
+            traverseDir(fullPath);     
+        } else { 
             count++;
-            console.log(fileData);
-            count = 0;
+            arr.push(fileData);
        }  
+       
     });
 }
 
