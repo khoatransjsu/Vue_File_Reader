@@ -2,7 +2,9 @@
   <div>  
         <div>
             <span v-on:click="openFolder('', 2)">Home</span>
+            <span v-for="i in breadCrumb" :key="i" v-on:click ="openFolder(i,2)"> / {{i}} </span>
         </div>
+        <br>
         <div>
           <ul>
             <li v-for="item in data" :key="item.name" v-on:click="openFolder(item.name, item.isFolder)">
@@ -25,16 +27,15 @@ export default {
   data(){
     return {
        data: [],
-       breadCrumb:[],
-       
+       breadCrumb:[],   
     }
   },
   methods: {
     async fetch_data(url) {
         let response = await axios.get(url);
         this.data = response.data
-
     },
+
     openFolder(filename, isFolder){
         let currentFolder = [];
         if (isFolder) {     
@@ -50,14 +51,14 @@ export default {
                 currentFolder.push(filename);
 
             this.fetch_data("http://localhost:5000/get/directory?path=" + encodeURIComponent(currentFolder.join("/")));
+
         }else{
           let dir = ((currentFolder.length  > 0) ?  "/" : "") + currentFolder.join("/");
+          this.count++;
         }
         this.breadCrumb=currentFolder;
     },
-    getBreadCrumb(){
-
-    }
+  
     
   },
   created(){
