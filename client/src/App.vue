@@ -1,9 +1,8 @@
 <template>
   <div>  
         <div>
-            <a href='/'> Home </a>
+            <span v-on:click="openFolder('', 2)">Home</span>
         </div>
-
         <div>
           <ul>
             <li v-for="item in data" :key="item.name" v-on:click="openFolder(item.name, item.isFolder)">
@@ -26,7 +25,7 @@ export default {
   data(){
     return {
        data: [],
-       breadCrumb:'',
+       breadCrumb:[],
        
     }
   },
@@ -53,9 +52,12 @@ export default {
             this.fetch_data("http://localhost:5000/get/directory?path=" + encodeURIComponent(currentFolder.join("/")));
         }else{
           let dir = ((currentFolder.length  > 0) ?  "/" : "") + currentFolder.join("/");
-          console.log(encodeURIComponent(dir + "/" + filename));
         }
-    } 
+        this.breadCrumb=currentFolder;
+    },
+    getBreadCrumb(){
+
+    }
     
   },
   created(){
