@@ -4,6 +4,7 @@ const cors = require('cors');
 const fs = require('fs');
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 
@@ -11,43 +12,39 @@ app.use(express.static(path.join(__dirname, 'pdf')));
 
 const root = path.join(__dirname, 'pdf');
 
-let arr = []
+const readDir = (req, res) => {
+    let arr = [];
+    let dir = root;
 
-function traverseDir(dir) {
+    if(req.query.path != undefined){
+        dir += '/'+req.query.path;
+    }
+
     fs.readdirSync(dir).forEach(file => {
-      let fullPath = path.join(dir, file);
-      const fileData = {
-        'name': file,
-        'location': fullPath 
+        let fullPath = path.join(dir, file);
+
+        const fileData = {
+            'name': file,
+            'isFolder': 1
         };
-       isPdf = false;
-      if (fs.lstatSync(fullPath).isDirectory()) {            
-            fileData['isPdf'] = false;
-            arr.push(fileData);   
-        } else { 
-            fileData['isPdf'] = true;
-            arr.push(fileData);
-       }       
+
+        if (!fs.lstatSync(fullPath).isDirectory()) {
+            fileData.isFolder = 0;
+        }
+        arr.push(fileData);
     });
-}
-
-const readDir = (req,res) =>{ 
-
-    traverseDir(__dirname + '/pdf/');
-
+    
     res.send(arr)
 
 }
 
-app.get('/', (req, res)=>{
-    res.send("Server Ok!")
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/view.html');
 });
 
-app.get('/readFiles', readDir);
+app.get('/get/directory', readDir);
 
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => { 
+app.listen(PORT, () => {
     console.log(`Server running on Port ${PORT}`);
 });
 
