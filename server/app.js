@@ -24,7 +24,6 @@ function traverseDir(dir) {
       if (fs.lstatSync(fullPath).isDirectory()) {            
             fileData['isPdf'] = false;
             arr.push(fileData);   
-            //traverseDir(fullPath);     
         } else { 
             fileData['isPdf'] = true;
             arr.push(fileData);
@@ -36,9 +35,7 @@ const readDir = (req,res) =>{
 
     traverseDir(__dirname + '/pdf/');
 
-    res.send({
-        arr
-    })
+    res.send(arr)
 
 }
 
