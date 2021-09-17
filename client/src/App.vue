@@ -23,11 +23,11 @@ import axios from 'axios'
 export default {
 
   name: 'App',
-  
   data(){
     return {
        data: [],
-       breadCrumb:[],   
+       breadCrumb:[],  
+       
     }
   },
   methods: {
@@ -46,7 +46,7 @@ export default {
                 let changeFolderIndex = currentFolder.indexOf(filename) + 1;
 
                 // if filename = '', go to home folder, else remove any folder after 'changeFolderIndex' from array
-                currentFolder = (filename == '') ? [] : currentFolder.splice(0, changeFolderIndex);
+                currentFolder= (filename == '') ? [] : currentFolder.splice(0, changeFolderIndex);
             }else
                 currentFolder.push(filename);
 
@@ -59,7 +59,6 @@ export default {
         this.breadCrumb=currentFolder;
     },
   
-    
   },
   created(){
     this.fetch_data('http://localhost:5000/get/directory');
