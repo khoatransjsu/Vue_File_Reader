@@ -28,8 +28,7 @@
         <div v-html="pdf">
             {{ pdf }}
         </div> 
-        <PDFDocument v-show="show" />
-        
+        <PDFDocument v-show="show" />     
   </v-container>
 </template>
 
