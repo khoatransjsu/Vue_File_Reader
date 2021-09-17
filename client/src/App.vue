@@ -7,7 +7,7 @@
           </v-toolbar-title>
         </v-toolbar>  
         <v-list>     
-            <v-list-item-group v-model="model">
+            <v-list-item-group>
               <v-list-item v-for="item in data" :key="item.name" v-on:click="openFolder(item.name, item.isFolder)">
                   <v-list-item-icon>
                     <v-icon v-if="item.isFolder"  >
