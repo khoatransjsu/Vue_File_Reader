@@ -1,18 +1,28 @@
 <template>
-  <v-container>  
-        <div>
-            <v-icon style="font-size: 40px;" v-on:click="openFolder('', 2)"> mdi-home </v-icon>
-            <span style="font-size: 20px;" v-for="i in breadCrumb" :key="i" v-on:click ="openFolder(i,2)"> / {{i}} </span>
-     
-        </div>
+  <v-container>        
+            <v-toolbar app dark color="blue-grey darken-1" class="hidden-xs-and-down">
+              <v-toolbar-title>
+                  <v-icon style="font-size: 38px;" v-on:click="openFolder('', 2)"> mdi-home </v-icon>
+                  <span style="font-size: 20px;" v-for="i in breadCrumb" :key="i" v-on:click ="openFolder(i,2)">/ {{i}} </span>
+              </v-toolbar-title>
+            </v-toolbar>  
         <br>
-        <div>
-          <ul>
-            <li v-for="item in data" :key="item.name" v-on:click="openFolder(item.name, item.isFolder)">
-                          {{ item.name }}
-            </li>            
-          </ul>
-        </div>
+        <v-list>
+            <v-list-item v-for="item in data" :key="item.name" v-on:click="openFolder(item.name, item.isFolder)">
+                <v-list-item-icon>
+                 <v-icon>
+                   mdi-star
+                 </v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>  
+                    <v-list-item-title v-text="item.name">  
+                     
+                    </v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>            
+          
+        </v-list>
         <div v-html="pdf">
             {{ pdf }}
         </div>
