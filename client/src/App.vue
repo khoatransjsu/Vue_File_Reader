@@ -6,13 +6,15 @@
      
         </div>
         <br>
-
         <div>
           <ul>
             <li v-for="item in data" :key="item.name" v-on:click="openFolder(item.name, item.isFolder)">
                           {{ item.name }}
-            </li>
+            </li>            
           </ul>
+        </div>
+        <div v-html="pdf">
+            {{ pdf }}
         </div>
     
   </v-container>
@@ -29,7 +31,8 @@ export default {
     return {
        data: [],
        breadCrumb:[],  
-       icon:'Folder',     
+       icon:'Folder', 
+       pdf:''
     }
   },
   methods: {
@@ -55,16 +58,18 @@ export default {
 
         }else{
           let dir = ((this.$globallength  > 0) ?  "/" : "") + this.$global.join("/");
+          this.pdf = "<h1>Hello</h1>"
         }
         this.breadCrumb=this.$global;
+        
     },
+    pdfRender(){
+       
+    }
+    
   
   },
-  computed:{
-      switchIcon(){
 
-      }
-  },
   created(){
     this.fetch_data('http://localhost:5000/get/directory');
   }
