@@ -10,6 +10,7 @@
     "@fortawesome/vue-fontawesome": "^2.0.2",
     "axios": "^0.21.4",
     "core-js": "^3.6.5",
+    "pdfjs-dist": "^2.9.359",
     "pdfvuer": "^1.9.2",
     "vue": "^2.6.11",
     "vuetify": "^2.4.0"

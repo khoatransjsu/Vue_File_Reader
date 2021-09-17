@@ -1,11 +1,12 @@
 <template>
-  <div>  
+  <v-container>  
         <div>
-            <span v-on:click="openFolder('', 2)">Home</span>
-            <span v-for="i in breadCrumb" :key="i" v-on:click ="openFolder(i,2)"> / {{i}} </span>
+            <v-icon style="font-size: 40px;" v-on:click="openFolder('', 2)"> mdi-home </v-icon>
+            <span style="font-size: 20px;" v-for="i in breadCrumb" :key="i" v-on:click ="openFolder(i,2)"> / {{i}} </span>
+     
         </div>
         <br>
-        <v-btn> Button </v-btn>
+
         <div>
           <ul>
             <li v-for="item in data" :key="item.name" v-on:click="openFolder(item.name, item.isFolder)">
@@ -14,7 +15,7 @@
           </ul>
         </div>
     
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -28,7 +29,7 @@ export default {
     return {
        data: [],
        breadCrumb:[],  
-       
+       icon:'Folder',     
     }
   },
   methods: {
@@ -54,11 +55,15 @@ export default {
 
         }else{
           let dir = ((this.$globallength  > 0) ?  "/" : "") + this.$global.join("/");
-          this.count++;
         }
         this.breadCrumb=this.$global;
     },
   
+  },
+  computed:{
+      switchIcon(){
+
+      }
   },
   created(){
     this.fetch_data('http://localhost:5000/get/directory');
