@@ -37,26 +37,25 @@ export default {
     },
 
     openFolder(filename, isFolder){
-        let currentFolder = [];
         if (isFolder) {     
-            if (filename == currentFolder[currentFolder.length - 1])
+            if (filename == this.$global[this.$global.length - 1])
                 return false;
             if (isFolder == 2) {
                 // get folder name index + 1
-                let changeFolderIndex = currentFolder.indexOf(filename) + 1;
+                let changeFolderIndex = this.$global.indexOf(filename) + 1;
 
                 // if filename = '', go to home folder, else remove any folder after 'changeFolderIndex' from array
-                currentFolder= (filename == '') ? [] : currentFolder.splice(0, changeFolderIndex);
+                this.$global= (filename == '') ? [] : this.$global.splice(0, changeFolderIndex);
             }else
-                currentFolder.push(filename);
+                this.$global.push(filename);
 
-            this.fetch_data("http://localhost:5000/get/directory?path=" + encodeURIComponent(currentFolder.join("/")));
+            this.fetch_data("http://localhost:5000/get/directory?path=" + encodeURIComponent(this.$global.join("/")));
 
         }else{
-          let dir = ((currentFolder.length  > 0) ?  "/" : "") + currentFolder.join("/");
+          let dir = ((this.$globallength  > 0) ?  "/" : "") + this.$global.join("/");
           this.count++;
         }
-        this.breadCrumb=currentFolder;
+        this.breadCrumb=this.$global;
     },
   
   },
