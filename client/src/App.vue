@@ -1,12 +1,11 @@
 <template>
   <v-container>        
-            <v-toolbar app dark color="blue-grey darken-1" class="hidden-xs-and-down">
-              <v-toolbar-title>
-                  <v-icon style="font-size: 38px;" v-on:click="openFolder('', 2)"> mdi-home </v-icon>
-                  <span style="font-size: 20px;" v-for="i in breadCrumb" :key="i" v-on:click ="openFolder(i,2)">/ {{i}} </span>
-              </v-toolbar-title>
-            </v-toolbar>  
-        <br>
+        <v-toolbar app dark color="blue-grey darken-1" class="hidden-xs-and-down">
+          <v-toolbar-title>
+              <v-icon style="font-size: 38px;" v-on:click="openFolder('', 2)"> mdi-home </v-icon>
+              <span style="font-size: 20px;" v-for="i in breadCrumb" :key="i" v-on:click ="openFolder(i,2)">/ {{i}} </span>
+          </v-toolbar-title>
+        </v-toolbar>  
         <v-list>     
             <v-list-item-group v-model="model">
               <v-list-item v-for="item in data" :key="item.name" v-on:click="openFolder(item.name, item.isFolder)">
@@ -28,25 +27,30 @@
         </v-list>
         <div v-html="pdf">
             {{ pdf }}
-        </div>
-    
+        </div> 
+        <PDFDocument v-show="show" />
+        
   </v-container>
 </template>
 
 <script>
 
 import axios from 'axios'
+import PDFDocument from './components/PDFDocument'
 
 export default {
-
   name: 'App',
   data(){
     return {
        data: [],
        breadCrumb:[],  
        icon:'mdi-folder', 
-       pdf:''
+       pdf:'',
+       show: false,
     }
+  },
+  components:{
+    PDFDocument,
   },
   methods: {
     async fetch_data(url) {
@@ -64,7 +68,7 @@ export default {
 
                 // if filename = '', go to home folder, else remove any folder after 'changeFolderIndex' from array
                 this.$global= (filename == '') ? [] : this.$global.splice(0, changeFolderIndex);
-                this.pdf='';
+                
             }else
                 this.$global.push(filename);
 
@@ -72,16 +76,14 @@ export default {
 
         }else{
           let dir = ((this.$globallength  > 0) ?  "/" : "") + this.$global.join("/");
-          this.pdf = "<h1>Hello</h1>"
+          this.showComponent();
         }
         this.breadCrumb=this.$global;
         
     },
-    pdfRender(){
-       
-    }
-    
-  
+    showComponent(){
+        this.show = !this.show;
+    },
   },
 
   created(){
