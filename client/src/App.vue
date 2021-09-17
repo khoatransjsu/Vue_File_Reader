@@ -5,6 +5,7 @@
             <span v-for="i in breadCrumb" :key="i" v-on:click ="openFolder(i,2)"> / {{i}} </span>
         </div>
         <br>
+        <v-btn> Button </v-btn>
         <div>
           <ul>
             <li v-for="item in data" :key="item.name" v-on:click="openFolder(item.name, item.isFolder)">
