@@ -7,21 +7,24 @@
               </v-toolbar-title>
             </v-toolbar>  
         <br>
-        <v-list>
-            <v-list-item v-for="item in data" :key="item.name" v-on:click="openFolder(item.name, item.isFolder)">
-                <v-list-item-icon>
-                 <v-icon>
-                   mdi-star
-                 </v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>  
-                    <v-list-item-title v-text="item.name">  
-                     
-                    </v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>            
-          
+        <v-list>     
+            <v-list-item-group v-model="model">
+              <v-list-item v-for="item in data" :key="item.name" v-on:click="openFolder(item.name, item.isFolder)">
+                  <v-list-item-icon>
+                    <v-icon v-if="item.isFolder"  >
+                      {{icon}}
+                    </v-icon>
+                    <v-icon v-else >
+                      mdi-file
+                    </v-icon>
+                  </v-list-item-icon>
+                   &nbsp&nbsp&nbsp
+                  <v-list-item-content>  
+                      <v-list-item-title v-text="item.name">      
+                      </v-list-item-title>
+                  </v-list-item-content>
+              </v-list-item>  
+            </v-list-item-group>         
         </v-list>
         <div v-html="pdf">
             {{ pdf }}
@@ -41,7 +44,7 @@ export default {
     return {
        data: [],
        breadCrumb:[],  
-       icon:'Folder', 
+       icon:'mdi-folder', 
        pdf:''
     }
   },
@@ -61,6 +64,7 @@ export default {
 
                 // if filename = '', go to home folder, else remove any folder after 'changeFolderIndex' from array
                 this.$global= (filename == '') ? [] : this.$global.splice(0, changeFolderIndex);
+                this.pdf='';
             }else
                 this.$global.push(filename);
 
