@@ -28,7 +28,7 @@
         <div v-html="pdf">
             {{ pdf }}
         </div> 
-        <PDFDocument v-show="show" />     
+        <PDFDocument :path="`${path}`" :fileName="`${name}`"/>  
   </v-container>
 </template>
 
@@ -46,6 +46,8 @@ export default {
        icon:'mdi-folder', 
        pdf:'',
        show: false,
+       name: 'compressed.tracemonkey-pldi-09.pdf', 
+       path: 'lib/pdfjs-2.9.359-dist/web/viewer.html'
     }
   },
   components:{

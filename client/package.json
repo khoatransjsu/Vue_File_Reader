@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@fortawesome/vue-fontawesome": "^2.0.2",
+    "@pdftron/webviewer": "^8.1.0",
     "axios": "^0.21.4",
     "core-js": "^3.6.5",
     "pdfjs-dist": "^2.9.359",
